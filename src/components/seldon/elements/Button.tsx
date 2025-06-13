@@ -5,31 +5,20 @@
  */
 import { HTMLButton } from "../native-react/HTML.Button"
 import { CSSProperties } from "react"
-import { IconProps, Icon } from "../primitives/Icon"
 import { LabelButtonProps, LabelButton } from "../primitives/LabelButton"
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  iconProps?: IconProps
   labelButtonProps?: LabelButtonProps
 }
 
-export const Button = ({
-  style,
-  iconProps,
-  labelButtonProps,
-  ...props
-}: ButtonProps) => {
+export const Button = ({ style, labelButtonProps, ...props }: ButtonProps) => {
   const styles = style || defaultStyles
 
   return (
     <HTMLButton style={styles} {...{ ...defaultProps.component, ...props }}>
-      <Icon
-        style={{ color: "hsl(0deg 4% 98%)", fontSize: "0.8rem" }}
-        {...{ ...defaultProps.children.iconProps, ...iconProps }}
-      />
       <LabelButton
         style={{
-          color: "hsl(0deg 4% 98%)",
+          color: "hsl(135deg 76% 59%)",
           fontFamily: "Inter",
           fontStyle: "normal",
           fontSynthesisStyle: "none",
@@ -53,29 +42,39 @@ type DefaultProps = {
 const defaultProps: DefaultProps = {
   component: {},
   children: {
-    iconProps: {
-      icon: "__default__",
-    },
     labelButtonProps: {
       children: "Label",
+      style: {
+        color: "hsl(135deg 76% 59%)",
+        fontFamily: "Inter",
+        fontStyle: "normal",
+        fontSynthesisStyle: "none",
+        fontWeight: 500,
+        fontSize: "0.8rem",
+        lineHeight: 1.15,
+        letterSpacing: "0.1px",
+        whiteSpace: "nowrap",
+        textOverflow: "ellipsis",
+        overflow: "hidden",
+      },
     },
   },
 }
 const defaultStyles: CSSProperties = {
-  backgroundColor: "transparent",
+  backgroundColor: "hsl(0deg 0% 15%)",
   cursor: "pointer",
   borderTopWidth: "0.069rem",
   borderTopStyle: "solid",
-  borderTopColor: "transparent",
+  borderTopColor: "hsl(0deg 0% 15%)",
   borderRightWidth: "0.069rem",
   borderRightStyle: "solid",
-  borderRightColor: "transparent",
+  borderRightColor: "hsl(0deg 0% 15%)",
   borderBottomWidth: "0.069rem",
   borderBottomStyle: "solid",
-  borderBottomColor: "transparent",
+  borderBottomColor: "hsl(0deg 0% 15%)",
   borderLeftWidth: "0.069rem",
   borderLeftStyle: "solid",
-  borderLeftColor: "transparent",
+  borderLeftColor: "hsl(0deg 0% 15%)",
   borderTopRightRadius: "99999px",
   borderBottomRightRadius: "99999px",
   borderBottomLeftRadius: "99999px",
