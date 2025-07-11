@@ -4,81 +4,65 @@
  * Do not redistribute or sublicense without permission.
  */
 import { HTMLButton } from "../native-react/HTML.Button"
-import { CSSProperties } from "react"
-import { LabelButtonProps, LabelButton } from "../primitives/LabelButton"
+import { CSSProperties, ButtonHTMLAttributes } from "react"
+import { Icon, IconProps } from "../primitives/Icon"
+import { LabelButton, LabelButtonProps } from "../primitives/LabelButton"
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  iconProps?: IconProps
   labelButtonProps?: LabelButtonProps
 }
 
-export const Button = ({ style, labelButtonProps, ...props }: ButtonProps) => {
-  const styles = style || defaultStyles
+export function Button({
+  style,
+  iconProps,
+  labelButtonProps,
+  ...props
+}: ButtonProps) {
+  const styles = { ...seldonStyles, ...style }
 
   return (
-    <HTMLButton style={styles} {...{ ...defaultProps.component, ...props }}>
-      <LabelButton
-        style={{
-          color: "hsl(135deg 76% 59%)",
-          fontFamily: "Inter",
-          fontStyle: "normal",
-          fontSynthesisStyle: "none",
-          fontWeight: 500,
-          fontSize: "0.8rem",
-          lineHeight: 1.15,
-          letterSpacing: "0.1px",
-          whiteSpace: "nowrap",
-          textOverflow: "ellipsis",
-          overflow: "hidden",
-        }}
-        {...{ ...defaultProps.children.labelButtonProps, ...labelButtonProps }}
-      />
+    <HTMLButton style={styles} {...props}>
+      <Icon {...{ ...seldon.iconProps, ...iconProps }} />
+      <LabelButton {...{ ...seldon.labelButtonProps, ...labelButtonProps }} />
     </HTMLButton>
   )
 }
-type DefaultProps = {
-  component: ButtonProps
-  children: ButtonProps
-}
-const defaultProps: DefaultProps = {
-  component: {},
-  children: {
-    labelButtonProps: {
-      children: "Label",
-      style: {
-        color: "hsl(135deg 76% 59%)",
-        fontFamily: "Inter",
-        fontStyle: "normal",
-        fontSynthesisStyle: "none",
-        fontWeight: 500,
-        fontSize: "0.8rem",
-        lineHeight: 1.15,
-        letterSpacing: "0.1px",
-        whiteSpace: "nowrap",
-        textOverflow: "ellipsis",
-        overflow: "hidden",
-      },
+
+const seldon: ButtonProps = {
+  iconProps: {
+    icon: "__default__",
+    style: {
+      color: "hsl(0deg 4% 98%)",
+      fontSize: "0.8rem",
+    },
+  },
+  labelButtonProps: {
+    children: "Label",
+    htmlElement: "span",
+    style: {
+      color: "hsl(0deg 4% 98%)",
+      fontFamily: "Inter",
+      fontStyle: "normal",
+      fontSynthesisStyle: "none",
+      fontWeight: 500,
+      fontSize: "0.8rem",
+      lineHeight: 1.15,
+      letterSpacing: "0.1px",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      overflow: "hidden",
     },
   },
 }
-const defaultStyles: CSSProperties = {
+
+const seldonStyles: CSSProperties = {
   backgroundColor: "hsl(0deg 0% 15%)",
   cursor: "pointer",
-  borderTopWidth: "0.069rem",
-  borderTopStyle: "solid",
   borderTopColor: "hsl(0deg 0% 15%)",
-  borderRightWidth: "0.069rem",
-  borderRightStyle: "solid",
   borderRightColor: "hsl(0deg 0% 15%)",
-  borderBottomWidth: "0.069rem",
-  borderBottomStyle: "solid",
   borderBottomColor: "hsl(0deg 0% 15%)",
-  borderLeftWidth: "0.069rem",
-  borderLeftStyle: "solid",
   borderLeftColor: "hsl(0deg 0% 15%)",
-  borderTopRightRadius: "99999px",
-  borderBottomRightRadius: "99999px",
-  borderBottomLeftRadius: "99999px",
-  borderTopLeftRadius: "99999px",
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
@@ -90,4 +74,7 @@ const defaultStyles: CSSProperties = {
   paddingLeft: "0.75rem",
   width: "fit-content",
   height: "fit-content",
+  borderWidth: "0.069rem",
+  borderStyle: "solid",
+  borderRadius: "99999px",
 }
