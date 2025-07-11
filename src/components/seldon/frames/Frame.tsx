@@ -3,11 +3,14 @@
  * Licensed under the Terms of Use: https://seldon.app/terms
  * Do not redistribute or sublicense without permission.
  */
-import { HTMLDiv } from "../native-react/HTML.Div"
+
 import { HTMLAttributes } from "react"
+import { HTMLDiv } from "../native-react/HTML.Div"
 
-export type FrameProps = HTMLAttributes<HTMLDivElement>
+export type FrameProps = HTMLAttributes<HTMLDivElement> & {
+  children?: React.ReactNode
+}
 
-export const Frame = (props: FrameProps) => {
+export function Frame(props: FrameProps) {
   return <HTMLDiv {...props} />
 }
