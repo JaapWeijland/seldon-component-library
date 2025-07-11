@@ -7,43 +7,28 @@ import { HTMLLabel } from "../native-react/HTML.Label"
 import { HTMLSpan } from "../native-react/HTML.Span"
 import { CSSProperties, HTMLAttributes } from "react"
 
-export type LabelButtonProps = HTMLAttributes<HTMLSpanElement> & {
+export interface LabelButtonProps
+  extends HTMLAttributes<HTMLLabelElement | HTMLSpanElement> {
+  children?: string
   htmlElement?: "span" | "label"
 }
 
-export const LabelButton = ({
+export function LabelButton({
   style,
   htmlElement,
   ...props
-}: LabelButtonProps) => {
-  const styles = style || defaultStyles
+}: LabelButtonProps) {
+  const styles = { ...seldonStyles, ...style }
 
   switch (htmlElement) {
-    case "span":
-      return (
-        <HTMLSpan style={styles} {...{ ...defaultProps.component, ...props }}>
-          {props.children}
-        </HTMLSpan>
-      )
+    case "label":
+      return <HTMLLabel style={styles} {...props} />
     default:
-      return (
-        <HTMLLabel style={styles} {...props}>
-          {props.children}
-        </HTMLLabel>
-      )
+      return <HTMLSpan style={styles} {...props} />
   }
 }
-type DefaultProps = {
-  component: LabelButtonProps
-  children: LabelButtonProps
-}
-const defaultProps: DefaultProps = {
-  component: {
-    children: "Label",
-  },
-  children: {},
-}
-const defaultStyles: CSSProperties = {
+
+const seldonStyles: CSSProperties = {
   color: "hsl(0deg 4% 8%)",
   fontFamily: "Inter",
   fontStyle: "normal",
