@@ -6,28 +6,18 @@
 import { IconDefault } from "../icons/IconDefault"
 import { CSSProperties, SVGAttributes } from "react"
 
-export type IconProps = SVGAttributes<SVGSVGElement> & {} & {
+export interface IconProps extends SVGAttributes<SVGElement> {
   icon?: "__default__"
 }
 
-export function Icon({ style, icon, ...props }: IconProps) {
-  const styles = style || defaultStyles
+export function Icon({ style, icon = "__default__", ...props }: IconProps) {
+  const styles = { ...seldonStyles, ...style }
 
-  const Icon = iconMap[icon || defaultProps.component.icon || "__default__"]
-  return <Icon style={styles} {...{ ...defaultProps.component, ...props }} />
+  const Icon = iconMap[icon || "__default__"]
+  return <Icon style={styles} {...props} />
 }
 
-type DefaultProps = {
-  component: IconProps
-  children: IconProps
-}
-const defaultProps: DefaultProps = {
-  component: {
-    icon: "__default__",
-  },
-  children: {},
-}
-const defaultStyles: CSSProperties = {
+const seldonStyles: CSSProperties = {
   color: "hsl(0deg 4% 8%)",
   fontSize: "1rem",
 }
