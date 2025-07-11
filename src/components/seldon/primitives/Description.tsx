@@ -3,41 +3,40 @@
  * Licensed under the Terms of Use: https://seldon.app/terms
  * Do not redistribute or sublicense without permission.
  */
-import { HTMLLabel } from "../native-react/HTML.Label"
+import { HTMLParagraph } from "../native-react/HTML.Paragraph"
 import { HTMLSpan } from "../native-react/HTML.Span"
 import { CSSProperties, HTMLAttributes } from "react"
 
-export interface LabelButtonProps
-  extends HTMLAttributes<HTMLLabelElement | HTMLSpanElement> {
+export interface DescriptionProps
+  extends HTMLAttributes<HTMLParagraphElement | HTMLSpanElement> {
   children?: string
-  htmlElement?: "span" | "label"
+  htmlElement?: "p" | "span"
 }
 
-export function LabelButton({
+export function Description({
   style,
   htmlElement,
   ...props
-}: LabelButtonProps) {
+}: DescriptionProps) {
   const styles = { ...seldonStyles, ...style }
 
   switch (htmlElement) {
-    case "label":
-      return <HTMLLabel style={styles} {...props} />
-    default:
+    case "span":
       return <HTMLSpan style={styles} {...props} />
+    default:
+      return <HTMLParagraph style={styles} {...props} />
   }
 }
 
 const seldonStyles: CSSProperties = {
   color: "hsl(0deg 4% 8%)",
+  alignSelf: "stretch",
+  height: "fit-content",
   fontFamily: "Inter",
   fontStyle: "normal",
   fontSynthesisStyle: "none",
-  fontWeight: 500,
+  fontWeight: 400,
   fontSize: "1rem",
-  lineHeight: 1.15,
-  letterSpacing: "0.1px",
-  whiteSpace: "nowrap",
-  textOverflow: "ellipsis",
-  overflow: "hidden",
+  lineHeight: 1.25,
+  whiteSpace: "normal",
 }
