@@ -4,68 +4,52 @@
  * Do not redistribute or sublicense without permission.
  */
 import { HTMLButton } from "../native-react/HTML.Button"
-import { CSSProperties } from "react"
-import { IconProps, Icon } from "../primitives/Icon"
+import { CSSProperties, ButtonHTMLAttributes } from "react"
+import { Icon, IconProps } from "../primitives/Icon"
 
-export type ButtonIconicProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+export interface ButtonIconicProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   iconProps?: IconProps
 }
 
-export const ButtonIconic = ({
+export function ButtonIconic({
   style,
   iconProps,
   ...props
-}: ButtonIconicProps) => {
-  const styles = style || defaultStyles
+}: ButtonIconicProps) {
+  const styles = { ...seldonStyles, ...style }
 
   return (
-    <HTMLButton style={styles} {...{ ...defaultProps.component, ...props }}>
-      <Icon
-        style={{ color: "hsl(0deg 4% 98%)", fontSize: "0.8rem" }}
-        {...{ ...defaultProps.children.iconProps, ...iconProps }}
-      />
+    <HTMLButton style={styles} {...props}>
+      <Icon {...{ ...seldon.iconProps, ...iconProps }} />
     </HTMLButton>
   )
 }
-type DefaultProps = {
-  component: ButtonIconicProps
-  children: ButtonIconicProps
-}
-const defaultProps: DefaultProps = {
-  component: {},
-  children: {
-    iconProps: {
-      icon: "__default__",
+
+const seldon: ButtonIconicProps = {
+  iconProps: {
+    icon: "__default__",
+    style: {
+      color: "hsl(0deg 4% 98%)",
+      fontSize: "0.8rem",
     },
   },
 }
-const defaultStyles: CSSProperties = {
+
+const seldonStyles: CSSProperties = {
   backgroundColor: "hsl(0deg 0% 15%)",
-  cursor: "pointer",
-  borderTopWidth: "0.069rem",
-  borderTopStyle: "solid",
   borderTopColor: "hsl(0deg 0% 15%)",
-  borderRightWidth: "0.069rem",
-  borderRightStyle: "solid",
   borderRightColor: "hsl(0deg 0% 15%)",
-  borderBottomWidth: "0.069rem",
-  borderBottomStyle: "solid",
   borderBottomColor: "hsl(0deg 0% 15%)",
-  borderLeftWidth: "0.069rem",
-  borderLeftStyle: "solid",
   borderLeftColor: "hsl(0deg 0% 15%)",
-  borderTopRightRadius: "99999px",
-  borderBottomRightRadius: "99999px",
-  borderBottomLeftRadius: "99999px",
-  borderTopLeftRadius: "99999px",
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",
-  paddingTop: "0.5rem",
-  paddingRight: "0.5rem",
-  paddingBottom: "0.5rem",
-  paddingLeft: "0.5rem",
   width: "fit-content",
   height: "fit-content",
+  padding: "0.5rem",
+  borderWidth: "0.069rem",
+  borderStyle: "solid",
+  borderRadius: "99999px",
 }
